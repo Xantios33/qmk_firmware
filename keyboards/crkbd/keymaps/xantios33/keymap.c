@@ -20,11 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keymap_french.h"
 
 #define AZERTY 0
-#define LOWER 1
-#define RAISE 2
-#define ADJUST 3
-#define GAME 4
+#define GAME 1
+#define LOWER 3
+#define RAISE 4
+#define ADJUST 5
 
+#define SWAP_GAME TG(GAME)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [AZERTY] = LAYOUT_split_3x6_3(
@@ -33,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_TAB,    FR_Q,    FR_S,    FR_D,    FR_F,    FR_G,                         FR_H,    FR_J,    FR_K,    FR_L,   FR_M, KC_QUOT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT,    FR_W,    FR_X,    FR_C,    FR_V,    FR_B,                         FR_N,FR_COMM,FR_SCLN , FR_COLN, FR_EXLM,  FR_LABK,
+      KC_LSFT,    FR_W,    FR_X,    FR_C,    FR_V,    FR_B,                        FR_N,FR_COMM,FR_SCLN , FR_COLN, FR_EXLM,  FR_LABK,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LCTL,MO(LOWER),  KC_SPC,    KC_ENT,MO(RAISE), KC_RALT
                                       //`--------------------------'  `--------------------------'
@@ -44,21 +45,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_ESC, FR_AMPR,FR_EACU , FR_DQUO, FR_QUOT, FR_LPRN,                      FR_MINS, FR_EGRV, FR_UNDS, FR_CCED, FR_AGRV, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_TAB, FR_RPRN, FR_EQL  , XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX,XXXXXXX, XXXXXXX, FR_CIRC ,FR_DLR  ,
+      KC_TAB, FR_RPRN, FR_EQL  , XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, KC_UP  , XXXXXXX, XXXXXXX, FR_CIRC ,FR_DLR  ,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,FR_UGRV ,FR_ASTR ,
+      KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_LEFT, KC_DOWN,KC_RGHT, XXXXXXX,FR_UGRV ,FR_ASTR ,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LCTL, _______,  KC_SPC,    KC_ENT,MO(ADJUST), KC_RALT
-                                      //`--------------------------'  `--------------------------'
+                                      //`--------------------------'  `-------------------------'
   ),
 
   [RAISE] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
+      KC_F1  ,  KC_F2 , KC_F3  ,  KC_F4 ,   KC_F5,  KC_F6,                         KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_MINS,  KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,  KC_GRV,
+      KC_TAB, XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      FR_MINS,  FR_EQL, FR_LBRC, FR_RBRC, FR_BSLS,  FR_GRV,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, KC_TILD,
+      KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      FR_UNDS, FR_PLUS, FR_LCBR, FR_RCBR, FR_PIPE, FR_TILD,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LCTL,MO(ADJUST),KC_SPC,    KC_ENT, _______, KC_RALT
                                       //`--------------------------'  `--------------------------'
@@ -66,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [ADJUST] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-        RESET, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        RESET, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,SWAP_GAME,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -74,6 +75,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LCTL, _______,  KC_SPC,     KC_ENT, _______, KC_RALT
                                       //`--------------------------'  `--------------------------'
+  ),
+
+    [GAME] = LAYOUT_split_3x6_3(
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+       KC_ESC,    FR_A,    FR_Z,    FR_E,    FR_R,    FR_T,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      KC_TAB,     FR_Q,    FR_S,    FR_D,    FR_F,    FR_G,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      KC_LSFT,    FR_W,    FR_X,    FR_C,    FR_V,    FR_B,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                          KC_LCTL, MO(LOWER),KC_SPC,     KC_ENT,MO(RAISE), KC_RALT
+                                        //`--------------------------'  `--------------------------'
   )
 };
 
